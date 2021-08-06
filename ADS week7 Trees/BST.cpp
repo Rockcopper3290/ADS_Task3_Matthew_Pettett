@@ -1,25 +1,25 @@
 #include "BST.h"
 
-void BST::insert(StudentNode* newStudent)
+void BST::insert(StudentNode* newTreeElement)
 {
-    //IF the root is NULL(tree is empty), then make this student the root
+    //IF the root is NULL(tree is empty), then make this treeElement the root
     if (root == NULL)
     {
-        root = newStudent;
+        root = newTreeElement;
         return; //exit function early, we are done here
     }
 
-    //some pointers to help us navigate the tree to find where to put the new student
+    //some pointers to help us navigate the tree to find where to put the new treeElement
     StudentNode* current = root; //current node we're pointing at
-    StudentNode* parent = NULL; //parent of current (node visitored last time)
+    StudentNode* parent = NULL; //parent of current treeElement (A.K.A. node visitored last time)
 
     while (true)//infinite loop
     {
         //lets keep track of where we were before moving down further
         parent = current;
         //LEFT OR RIGHT?!
-        //if new students studentID is less then the student at current node, then go down LEFT
-        if (newStudent->studentID < current->studentID)
+        //if the new treeElements (treeElement) is less then the treeElement at current node, then go down LEFT
+        if (newTreeElement->treeElement < current->treeElement)
         {
             //< means we go down deeper into tree on left side
             current = current->leftChild;
@@ -27,7 +27,7 @@ void BST::insert(StudentNode* newStudent)
             if (current == NULL)
             {
                 //done, stick student here
-                parent->leftChild = newStudent;
+                parent->leftChild = newTreeElement;
                 return; //done, bail
             }
         }
@@ -38,16 +38,16 @@ void BST::insert(StudentNode* newStudent)
             //if current is NULL, insert there
             if (current == NULL)
             {
-                parent->rightChild = newStudent;
+                parent->rightChild = newTreeElement;
                 return;
             }
         }
     }
 }
 
-StudentNode* BST::search(int studentID, bool showSearchPath)
+StudentNode* BST::search(int treeElement, bool showSearchPath)
 {
-    //if tree empty, cant find student matching studentID then
+    //if tree empty, cant find student matching treeElement then
     if (root == NULL)
     {
         return NULL;
@@ -56,15 +56,14 @@ StudentNode* BST::search(int studentID, bool showSearchPath)
     StudentNode* current = root;
 
     //keep looping until I find a match
-    while (current->studentID != studentID)
+    while (current->treeElement != treeElement)
     {
         
 
         if (showSearchPath)
-            cout << current->studentID << " " << current->name << endl;
 
         //havent found it yet, lefts explore left or right down in the tree
-        if (studentID < current->studentID)
+        if (treeElement < current->treeElement)
         {
             //go left
             current = current->leftChild;
@@ -75,7 +74,7 @@ StudentNode* BST::search(int studentID, bool showSearchPath)
             current = current->rightChild;
         }
 
-        //if current is NULL, search studentID cannot be found
+        //if current is NULL, search treeElement cannot be found
         if (current == NULL)
         {
             return NULL;
@@ -94,7 +93,6 @@ void BST::inOrderTraversal(StudentNode* current)
     if (current != NULL)
     {
         inOrderTraversal(current->leftChild);
-        cout << current->studentID << " " << current->name << endl;
         inOrderTraversal(current->rightChild);
     }
 }
@@ -103,7 +101,6 @@ void BST::preOrderTraversal(StudentNode* current)
 {
     if (current != NULL)
     {
-        cout << current->studentID << " " << current->name << endl;
         preOrderTraversal(current->leftChild);
         preOrderTraversal(current->rightChild);
     }
@@ -115,7 +112,6 @@ void BST::postOrderTraversal(StudentNode* current)
     {
         postOrderTraversal(current->leftChild);
         postOrderTraversal(current->rightChild);
-        cout << current->studentID << " " << current->name << endl;
     }
 }
 
@@ -143,7 +139,7 @@ void BST::show(StudentNode* p)
             cout << node.level << "- ";
             previousOutputLevel = node.level;
         }
-        cout << node.student->studentID << ":" << node.student->name << " ";
+        cout << node.student->treeElement<< " ";
         q.pop();
 
         /* Enqueue left child */
@@ -155,6 +151,57 @@ void BST::show(StudentNode* p)
             q.push(StudentLevelNode(node.student->rightChild, node.level + 1));
 
     }
-
-
 }
+
+void BST::writeToFile(StudentNode* p, string outputFileName)
+{
+    ofstream writeToFile;
+    // Opens and reads text file called "input-q1a2.txt"
+    writeToFile.open(outputFileName);
+    // If file could not be opened, program will exit with an error message (AKA: Idiot proofing)
+    if (!writeToFile.is_open())
+    {
+        cout << "\t!!ERROR!!" << endl;
+        cout << "\tOutput file named '" << outputFileName << "' was unable to be opened." << endl;
+        exit(1);
+    }
+
+    // Base Case
+    if (root == NULL) return;
+
+    // Create an empty queue for level order traversal
+    queue<StudentLevelNode> q;
+
+    // Enqueue Root and initialize height
+    q.push(StudentLevelNode(root, 0));
+
+    int previousOutputLevel = -1;
+
+    while (q.empty() == false)
+    {
+        //Print front of queue and remove it from queue
+        StudentLevelNode node = q.front();
+        if (node.level != previousOutputLevel)
+        {
+            writeToFile << endl;
+            writeToFile << node.level << "- ";
+            previousOutputLevel = node.level;
+        }
+        writeToFile << node.student->treeElement << " ";
+        q.pop();
+
+        /* Enqueue left child */
+        if (node.student->leftChild != NULL)
+            q.push(StudentLevelNode(node.student->leftChild, node.level + 1));
+
+        /* Enqueue right child */
+        if (node.student->rightChild != NULL)
+            q.push(StudentLevelNode(node.student->rightChild, node.level + 1));
+    }
+
+    // closes the file that your writing to
+    writeToFile.close();
+}
+
+
+

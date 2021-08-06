@@ -35,8 +35,6 @@ StudentNode* AVL::RRrotation(StudentNode* parent)
     StudentNode* temp = parent->rightChild;
     parent->rightChild = temp->leftChild;
     temp->leftChild = parent;
-    if (displayRotations)
-        cout << "RR rotation on " << parent->name << endl;
 
     return temp;
 }
@@ -46,8 +44,6 @@ StudentNode* AVL::LLrotation(StudentNode* parent)
     StudentNode* temp = parent->leftChild;
     parent->leftChild = temp->rightChild;
     temp->rightChild = parent;
-    if (displayRotations)
-        cout << "RR rotation on " << parent->name << endl;
 
     return temp;
 }
@@ -58,8 +54,6 @@ StudentNode* AVL::LRrotation(StudentNode* parent)
 {
     StudentNode* temp = parent->leftChild;
     parent->leftChild = RRrotation(temp);
-    if(displayRotations)
-        cout << "LR rotation on " << parent->name << endl;
     return LLrotation(parent);
 }
 
@@ -67,8 +61,7 @@ StudentNode* AVL::RLrotation(StudentNode* parent)
 {
     StudentNode* temp = parent->rightChild;
     parent->rightChild = LLrotation(temp);
-    if (displayRotations)
-        cout << "RL rotation on " << parent->name << endl;
+
     return RRrotation(parent);
 }
 
@@ -111,32 +104,32 @@ StudentNode* AVL::balance(StudentNode* parent)
     return parent;
 }
 
-StudentNode* AVL::insertAVL(StudentNode* parent, StudentNode* newStudent)
+StudentNode* AVL::insertAVL(StudentNode* parent, StudentNode* newTreeElement)
 {
     //if sub tree empty, this becomes the parent
     if (parent == NULL)
     {
-        parent = newStudent;
+        parent = newTreeElement;
         return parent;
     }
 
     //parent not null, so we haven't found an empty space to stick new student yet
     //so we need to go down either left or right path
-    if (newStudent->studentID < parent->studentID)
+    if (newTreeElement->treeElement < parent->treeElement)
     {
-        parent->leftChild = insertAVL(parent->leftChild, newStudent);
+        parent->leftChild = insertAVL(parent->leftChild, newTreeElement);
         parent = balance(parent);
+        return parent;
     }
     else //assume id >= parent's id
     {
-        parent->rightChild = insertAVL(parent->rightChild, newStudent);
+        parent->rightChild = insertAVL(parent->rightChild, newTreeElement);
         parent = balance(parent);
+        return parent;
     }
 }
 
-void AVL::insert(StudentNode* newStudent)
+void AVL::insert(StudentNode* newTreeElement)
 {
-    cout << "Inserting " << newStudent->name << " " << newStudent->studentID << endl;
-    root = insertAVL(root, newStudent);
-    cout << endl;
+    root = insertAVL(root, newTreeElement);
 }

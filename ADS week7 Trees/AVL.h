@@ -35,9 +35,9 @@ public:
 	//recursive insert that considers parent a sub tree
 	//this insert also balances itself
 	//returns the new root node of the tree
-	StudentNode* insertAVL(StudentNode* parent, StudentNode* newStudent);
+	StudentNode* insertAVL(StudentNode* parent, StudentNode* newTreeElement);
 
 	//overriding insert from parent
-	void insert(StudentNode* newStudent);
+	void insert(StudentNode* newTreeElement);
 };
 

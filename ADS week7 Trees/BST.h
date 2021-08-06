@@ -1,5 +1,6 @@
 #pragma once
 #include <queue>
+#include <fstream> //file reading/writing stuff
 #include "StudentNode.h"
 
 
@@ -35,5 +36,6 @@ class BST
 
 		//show
 		void show(StudentNode* p);
+		void writeToFile(StudentNode* p, string outputFileName);
 };
 
