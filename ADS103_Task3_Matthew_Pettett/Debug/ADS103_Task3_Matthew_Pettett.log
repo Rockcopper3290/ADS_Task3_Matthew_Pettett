@@ -1,0 +1,10 @@
+﻿  A00051029.cpp
+  AVL.cpp
+  BST.cpp
+  HeapNode.cpp
+  Heaps.cpp
+D:\Torrens work Folder\Trimester 2\ADS\Task 3\ADS103_Task3_Matthew_Pettett\Heaps.cpp(6,19): warning C4018: '<': signed/unsigned mismatch
+D:\Torrens work Folder\Trimester 2\ADS\Task 3\ADS103_Task3_Matthew_Pettett\Heaps.cpp(15,20): warning C4018: '<': signed/unsigned mismatch
+  TreeNode.cpp
+  Generating Code...
+  ADS103_Task3_Matthew_Pettett.vcxproj -> D:\Torrens work Folder\Trimester 2\ADS\Task 3\ADS103_Task3_Matthew_Pettett\Debug\ADS103_Task3_Matthew_Pettett.exe
