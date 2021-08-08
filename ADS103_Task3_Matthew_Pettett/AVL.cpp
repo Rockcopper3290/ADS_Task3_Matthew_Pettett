@@ -1,3 +1,7 @@
+//Class: ADS 103
+//Name: Matthew Pettett
+//Student ID: A00051029
+
 #include "AVL.h"
 
 //using recursion, we keep exploring down, and pass final height values up
@@ -113,7 +117,7 @@ TreeNode* AVL::insertAVL(TreeNode* parent, TreeNode* newTreeElement)
         return parent;
     }
 
-    //parent not null, so we haven't found an empty space to stick new student yet
+    //parent not null, so we haven't found an empty space to stick the new TreeElement in.
     //so we need to go down either left or right path
     if (newTreeElement->treeElement < parent->treeElement)
     {
@@ -121,7 +125,7 @@ TreeNode* AVL::insertAVL(TreeNode* parent, TreeNode* newTreeElement)
         parent = balance(parent);
         return parent;
     }
-    else //assume id >= parent's id
+    else //assuming that id >= parent's id
     {
         parent->rightChild = insertAVL(parent->rightChild, newTreeElement);
         parent = balance(parent);

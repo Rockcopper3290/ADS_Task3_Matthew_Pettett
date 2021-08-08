@@ -1,3 +1,7 @@
+//Class: ADS 103
+//Name: Matthew Pettett
+//Student ID: A00051029
+
 #pragma once
 #include <queue>
 #include <fstream> //file reading/writing stuff
@@ -7,13 +11,13 @@
 //HELPER CLASS FOR OUTPUT
 class TreeLevelNode {
 public:
-	TreeNode* student;
+	TreeNode* treeNodeElement;
 	int level;
 
 	//constructor
-	TreeLevelNode(TreeNode* student, int level)
+	TreeLevelNode(TreeNode* treeNodeElement, int level)
 	{
-		this->student = student;
+		this->treeNodeElement = treeNodeElement;
 		this->level = level;
 	}
 };
@@ -26,8 +30,8 @@ class BST
 {
 public:
 	TreeNode* root = NULL;
-	virtual void insert(TreeNode* newStudent);
-	TreeNode* search(int studentID, bool showSearchPath = false);
+	virtual void insert(TreeNode* newTreeNodeElement);
+	TreeNode* search(int treeNodeElement, bool showSearchPath = false);
 
 	//recursive traversal functions
 	void inOrderTraversal(TreeNode* current);

@@ -1,3 +1,7 @@
+//Class: ADS 103
+//Name: Matthew Pettett
+//Student ID: A00051029
+
 #include "BST.h"
 
 void BST::insert(TreeNode* newTreeElement)
@@ -23,10 +27,10 @@ void BST::insert(TreeNode* newTreeElement)
         {
             //< means we go down deeper into tree on left side
             current = current->leftChild;
-            //if current is NULL, we just found an empty space to insert our new Student :D
+            //if current is NULL, we just found an empty space to insert our new TreeElement :D
             if (current == NULL)
             {
-                //done, stick student here
+                //done, stick TreeElement here
                 parent->leftChild = newTreeElement;
                 return; //done, bail
             }
@@ -47,7 +51,7 @@ void BST::insert(TreeNode* newTreeElement)
 
 TreeNode* BST::search(int treeElement, bool showSearchPath)
 {
-    //if tree empty, cant find student matching treeElement then
+    //if tree empty, cant find a treeElement (tried to search for) matching treeElement (given to search for) then
     if (root == NULL)
     {
         return NULL;
@@ -139,16 +143,16 @@ void BST::show(TreeNode* p)
             cout << node.level << "- ";
             previousOutputLevel = node.level;
         }
-        cout << node.student->treeElement << " ";
+        cout << node.treeNodeElement->treeElement << " ";
         q.pop();
 
         /* Enqueue left child */
-        if (node.student->leftChild != NULL)
-            q.push(TreeLevelNode(node.student->leftChild, node.level + 1));
+        if (node.treeNodeElement->leftChild != NULL)
+            q.push(TreeLevelNode(node.treeNodeElement->leftChild, node.level + 1));
 
         /* Enqueue right child */
-        if (node.student->rightChild != NULL)
-            q.push(TreeLevelNode(node.student->rightChild, node.level + 1));
+        if (node.treeNodeElement->rightChild != NULL)
+            q.push(TreeLevelNode(node.treeNodeElement->rightChild, node.level + 1));
 
     }
 }
@@ -187,16 +191,16 @@ void BST::writeToFile(TreeNode* p, string outputFileName)
             writeToFile << node.level << "- ";
             previousOutputLevel = node.level;
         }
-        writeToFile << node.student->treeElement << " ";
+        writeToFile << node.treeNodeElement->treeElement << " ";
         q.pop();
 
         /* Enqueue left child */
-        if (node.student->leftChild != NULL)
-            q.push(TreeLevelNode(node.student->leftChild, node.level + 1));
+        if (node.treeNodeElement->leftChild != NULL)
+            q.push(TreeLevelNode(node.treeNodeElement->leftChild, node.level + 1));
 
         /* Enqueue right child */
-        if (node.student->rightChild != NULL)
-            q.push(TreeLevelNode(node.student->rightChild, node.level + 1));
+        if (node.treeNodeElement->rightChild != NULL)
+            q.push(TreeLevelNode(node.treeNodeElement->rightChild, node.level + 1));
     }
 
     // closes the file that your writing to
